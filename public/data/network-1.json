@@ -1,0 +1,134 @@
+{
+  "nodes": [
+    {
+      "seq": 0,
+      "id": "Anna Maria Luisa de' Medici"
+    },
+    {
+      "seq": 1,
+      "id": "Maria Dorothea Wilhelmina Freiin von Metternich Angelelli"
+    },
+    {
+      "seq": 2,
+      "id": "Pietro Neri Lorenzo, Marquis Angelelli"
+    },
+    {
+      "seq": 3,
+      "id": "Maria Vittoria of Savoy"
+    },
+    {
+      "seq": 4,
+      "id": "Victor Amadeus of Savoy, Prince of Carigon"
+    },
+    {
+      "seq": 5,
+      "id": "Louis XV, King of France"
+    },
+    {
+      "seq": 6,
+      "id": "Cardinal Fluery"
+    },
+    {
+      "seq": 7,
+      "id": "Louis Henri, Duke of Bourbon"
+    },
+    {
+      "seq": 8,
+      "id": "Johanna Isabella von Bouscheidt (von Schaesberg)"
+    },
+    {
+      "seq": 9,
+      "id": "Caspar Franz Edmund von Bourscheidt"
+    },
+    {
+      "seq": 10,
+      "id": "Charles III Philip, Elector Palatine"
+    },
+    {
+      "seq": 11,
+      "id": "Baroness Massimiliana von Moltke"
+    },
+    {
+      "seq": 12,
+      "id": "Charles VI, Holy Roman Emperor"
+    }
+  ],
+  "links": [
+    {
+      "source": 0,
+      "target": 1
+    },
+    {
+      "source": 0,
+      "target": 2
+    },
+    {
+      "source": 0,
+      "target": 3
+    },
+    {
+      "source": 0,
+      "target": 5
+    },
+    {
+      "source": 0,
+      "target": 8
+    },
+    {
+      "source": 0,
+      "target": 10
+    },
+    {
+      "source": 0,
+      "target": 11
+    },
+    {
+      "source": 1,
+      "target": 2
+    },
+    {
+      "source": 1,
+      "target": 3
+    },
+    {
+      "source": 3,
+      "target": 4
+    },
+    {
+      "source": 3,
+      "target": 6
+    },
+    {
+      "source": 3,
+      "target": 7
+    },
+    {
+      "source": 4,
+      "target": 5
+    },
+    {
+      "source": 5,
+      "target": 6
+    },
+    {
+      "source": 5,
+      "target": 7
+    },
+    {
+      "source": 8,
+      "target": 9
+    },
+    {
+      "source": 8,
+      "target": 10
+    },
+    {
+      "source": 9,
+      "target": 10
+    },
+    {
+      "source": 11,
+      "target": 12
+    }
+  ]
+}

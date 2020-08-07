@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <link href="/images/favicon.ico" rel="icon" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.19/lodash.min.js"></script>
+    <script src="https://unpkg.com/http-vue-loader"></script>
+
+  </head>
+
+  <body>
+    <div id="app">
+        <custom-component :items="items" :width="width" :height="height"/>
+    </div>
+
+    <script type="text/javascript">
+        Vue.use(httpVueLoader)
+
+        const components = {
+            IIIFSideBySide: [{ 
+                id: 'item-0',
+                url1: 'https://iiif.visual-essays.app/images/88b53551f91eaeea450ff6c196b4fd5f9fd6955b356d616543af591f/info.json',
+                url2: 'https://iiif.visual-essays.app/images/a58d7d72db0b59290c54d57e414d88d892efee1b88cc639ee0f6dc3f/info.json'
+            }],
+            D3Network: [{ id: 'item-0', url: 'public/data/miserables.json' }],
+            D3PlusNetwork: [{ id: 'item-0', url: 'public/data/medici.tsv' }],
+            D3PlusRingNetwork: [{ id: 'item-0', url: 'public/data/medici.tsv' }],
+            VisNetwork: [{ id: 'item-0', file: 'https://raw.githubusercontent.com/jstor-labs/plant-humanities/master/graphs/medici.tsv', layout: "network", arrows: "to"  }],
+            StoriiiesViewer: [{ id: '3f1du' }],
+            VideoPlayer: [{ id: 'EvUK6ANy5II' }],
+            LeafletMap: [{ 
+                id: 'map-0',
+                center: [38.88, -77.03], zoom: 13,
+                // center: [0, 50], zoom: 2,
+                // 'time-selector': '0:2020',
+                'hide-labels': 'true',
+                layers: [
+                    { id: 'map-layer-1', type: 'mapwarper', 'mapwarper-id': '37798', title: 'Cherry festival map', active: true },
+                    { id: 'map-layer-2', type: 'geojson', url: 'https://data.whosonfirst.org/859/317/79/85931779.geojson' , title: 'Washington DC', active: true },
+                    // { id: 'map-layer-3', type: 'geojson', url: 'https://raw.githubusercontent.com/rsnyder/ve/master/public/data/cities.json' , 'date-field': 'inception', title: 'Cities', active: true },
+            ]
+            }],
+            ImageViewer: [{ 
+                id: 'item-0',
+                url: 'https://iiif.visual-essays.app/images/2fbba2fdf4e34c1e6b4441db6a7addc7c511059b175cff68eaee0e6d/full/,1000/0/default.png',
+                'iiif-url': 'https://iiif.visual-essays.app/images/2fbba2fdf4e34c1e6b4441db6a7addc7c511059b175cff68eaee0e6d'
+            }],
+            OpenSeadragonImageViewer: [{ id: 'item-0', 'iiif-url': 'https://iiif.visual-essays.app/images/44605f0600bc7a3c264abf650f3c7eb785fffec8b3eb10cf30d37a39' }],
+            MiradorViewer: [{ id: 'item-0', manifest: 'https://iiif.visual-essays.app/presentation/0c5b8a7a5ac54eb61cf94c3ade84b6016ef432ccbff9987012d3432e/manifest' }],
+            StaticImageViewer: [
+                { id: 'item-0', url: 'https://upload.wikimedia.org/wikipedia/commons/0/02/Ann_Arbor_Art_Fair%2C_2019.jpg' },
+                { id: 'item-1', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Michigan_Theater%2C_Ann_Arbor_2020-05-05.jpg/1024px-Michigan_Theater%2C_Ann_Arbor_2020-05-05.jpg' }
+            ]
+        }
+
+        const indexComponents = new Set(['ImageViewer'])
+
+        Vue.mixin({
+            methods: { 
+                load(url, callback) {
+                    let e
+                    if (url.split('.').pop() === 'js') {
+                        e = document.createElement('script')
+                        e.src = url
+                        e.type='text/javascript'
+                    } else {
+                        e = document.createElement('link')
+                        e.href = url
+                        e.rel='stylesheet'
+                    }
+                    e.addEventListener('load', callback)
+                    document.getElementsByTagName('head')[0].appendChild(e)
+                },
+                loadDependencies(dependencies, i, callback) {
+                    if (dependencies.length > 0) {
+                        this.load(dependencies[i], () => {
+                            if (i < dependencies.length-1) {
+                                this.loadDependencies(dependencies, i+1, callback) 
+                            } else {
+                                callback()
+                            }
+                        })
+                    }
+                },
+                delimitedStringToObjArray(delimitedData, delimiter) {
+                    delimiter = delimiter || `\t`
+                    const objArray = []
+                    const lines = delimitedData.split('\n').filter(line => line.trim() !== '')
+                    if (lines.length > 1) {
+                        const keys = lines[0].split(delimiter).map(key => key.trim())
+                        lines.slice(1).forEach(line => {
+                        let obj = {}
+                        line.split(delimiter)
+                        .map(value => value.trim())
+                        .forEach((value, i) => {
+                            let rawKey = keys[i].split('.')
+                            let key = rawKey[0]
+                            let prop = rawKey.length === 2 ? rawKey[1] : 'id'
+                            if (!obj[key]) obj[key] = {}
+                            if (value || prop === 'id') {
+                            obj[key][prop] = value
+                            }
+                        })      
+                        objArray.push(obj)
+                        })
+                        let assignedId = 0
+                        let labels = {}
+                        objArray.forEach(obj => {
+                        Object.values(obj).forEach(child => {
+                            if (child.id === '' && child.label) {
+                            if (!labels[child.label]) labels[child.label] = ++assignedId
+                            child.id = labels[child.label]
+                            }
+                        })
+                        })
+                    }
+                    return objArray
+                },
+                eqSet(as, bs) {
+                    if (as.size !== bs.size) return false
+                    for (var a of as) if (!bs.has(a)) return false
+                     return true
+                }
+            }
+        })
+
+        const component = window.location.hash ? window.location.hash.split('#')[1].split('?'[0])[0] : 'LeafletMap'
+        const qargs = parseQueryString()
+        const items = Object.keys(qargs).length > 0
+            ? [{ ...{ id: 'item-0'}, ...qargs }]
+            : components[component]
+        console.log(`loading component: ${component}`, items)
+
+        new Vue({
+            el: '#app',
+            components: {
+                'custom-component': httpVueLoader(`components/${component}${indexComponents.has(component) ? '/index': ''}.vue`)
+            },
+            data: () => ({
+                items,
+                width: 1000,
+                height: 1000
+            })
+        })
+
+        function parseQueryString(queryString) {
+            /* eslint-disable no-param-reassign */
+            /* eslint-disable no-plusplus */
+            queryString = queryString || window.location.search || (window.location.hash.indexOf('?') > -1 ? window.location.hash.split('?').pop() : '')
+            const dictionary = {}
+            try {
+                const parts = queryString.split('&')
+                for (let i = 0; i < parts.length; i++) {
+                    const p = parts[i]
+                    const keyValuePair = p.split('=')
+                    if (keyValuePair[0] !== '') {
+                        const key = keyValuePair[0]
+                        if (keyValuePair.length === 2) {
+                            let value = keyValuePair[1]
+                            // decode URI encoded string
+                            value = decodeURIComponent(value)
+                            value = value.replace(/\+/g, ' ')
+                            dictionary[key] = value
+                        } else {
+                            dictionary[key] = 'true'
+                        }
+                    }
+                }
+            } catch (err) {
+                console.log(err);
+            }
+            return dictionary;
+        }
+    </script>
+  </body>
+</html>

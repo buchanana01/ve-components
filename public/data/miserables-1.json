@@ -1,0 +1,37 @@
+{
+  "nodes": [
+    {"id": "Anna Maria Luisa de’ Medici", "group": 1},
+    {"id": "Maria Dorothea Wilhelmina von Metternich Angelelli", "group": 1},
+    {"id": "Pietro Neri Lorenzo, Marquis Angelelli", "group": 1},
+    {"id": "Maria Vittoria of Savoy", "group": 1},
+    {"id": "Johanna Isabella von Bourscheidt (von Schaesberg)", "group": 1},
+    {"id": "Baroness Massimiliana von Moltke", "group": 1},
+    {"id": "Louis XV, King of France", "group": 2},
+    {"id": "Charles III Philip, Elector Palatine", "group": 2},
+    {"id": "Victor Amadeus of Savoy, Prince of Carigon", "group": 3},
+    {"id": "Cardinal Fluery", "group": 3},
+    {"id": "Louis Henri, Duke of Bourbon", "group": 3},
+    {"id": "Caspar Franz Edmund von Bourscheidt", "group": 4},
+    {"id": "Charles VI, Holy Roman Emperor", "group": 5}
+  ],
+  "links": [
+    {"source": "Anna Maria Luisa de’ Medici", "target": "Maria Dorothea Wilhelmina von Metternich Angelelli", "value": 1},
+    {"source": "Anna Maria Luisa de’ Medici", "target": "Pietro Neri Lorenzo, Marquis Angelelli", "value": 1},
+    {"source": "Anna Maria Luisa de’ Medici", "target": "Maria Vittoria of Savoy", "value": 1},
+    {"source": "Anna Maria Luisa de’ Medici", "target": "Johanna Isabella von Bourscheidt (von Schaesberg)", "value": 1},
+    {"source": "Anna Maria Luisa de’ Medici", "target": "Baroness Massimiliana von Moltke", "value": 1},
+    {"source": "Anna Maria Luisa de’ Medici", "target": "Louis XV, King of France", "value": 2},
+    {"source": "Anna Maria Luisa de’ Medici", "target": "Charles III Philip, Elector Palatine", "value": 2},
+    {"source": "Maria Dorothea Wilhelmina von Metternich Angelelli", "target": "Pietro Neri Lorenzo, Marquis Angelelli", "value": 2},
+    {"source": "Maria Dorothea Wilhelmina von Metternich Angelelli", "target": "Maria Vittoria of Savoy", "value": 2},
+    {"source": "Maria Vittoria of Savoy", "target": "Victor Amadeus of Savoy, Prince of Carigon", "value": 3},
+    {"source": "Maria Vittoria of Savoy", "target": "Cardinal Fluery", "value": 3},
+    {"source": "Maria Vittoria of Savoy", "target": "Louis Henri, Duke of Bourbon", "value": 3},
+    {"source": "Victor Amadeus of Savoy, Prince of Carigon", "target": "Louis XV, King of France", "value": 3},
+    {"source": "Cardinal Fluery", "target": "Louis XV, King of France", "value": 3},
+    {"source": "Louis Henri, Duke of Bourbon", "target": "Louis XV, King of France", "value": 3},
+    {"source": "Johanna Isabella von Bourscheidt (von Schaesberg)", "target": "Caspar Franz Edmund von Bourscheidt", "value": 4},
+    {"source": "Caspar Franz Edmund von Bourscheidt", "target": "Charles III Philip, Elector Palatine", "value": 4},
+    {"source": "Baroness Massimiliana von Moltke", "target": "Charles VI, Holy Roman Emperor", "value": 5}
+  ]
+}
