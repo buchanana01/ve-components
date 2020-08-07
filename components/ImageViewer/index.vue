@@ -20,8 +20,8 @@ module.exports = {
     defaultFit: {type: String, default: 'cover'}
   },
   components: {
-    openSeadragonImageViewer: 'url:https://raw.githubusercontent.com/rsnyder/ve/master/components/ImageViewer/OpenSeadragonViewer.vue',
-    staticImageViewer: 'url:https://raw.githubusercontent.com/rsnyder/ve/master/components/ImageViewer/StaticImageViewer.vue'
+    openSeadragonImageViewer: 'url:./components/ImageViewer/OpenSeadragonViewer.vue',
+    staticImageViewer: 'url:./components/ImageViewer/StaticImageViewer.vue'
   },
   data: () => ({
     mode: 'static',
