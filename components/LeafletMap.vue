@@ -14,7 +14,8 @@
 const dependencies = [
     'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet.css',
     'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet.js',
-    'https://rsnyder.github.io/ve/public/js/L.Control.Opacity.js'
+    'https://raw.githubusercontent.com/jstor-labs/ve-components/master/public/js/L.Control.Opacity.js',
+    'https://raw.githubusercontent.com/jstor-labs/ve-components/master/public/js/leaflet-fa-marker.js',
 ]
 
 const baseLayers = {
@@ -82,10 +83,11 @@ module.exports = {
         return mapDef
     },
     timeSelector() { return this.mapDef['time-selector'] },
-    locations() { return this.items.filter(entity => entity.coords || entity.geojson) },
+    locations() { return this.itemsInActiveElements.filter(entity => entity.coords || entity.geojson) },
     isSelected() { return this.selected === 'map' }
   },
   mounted() {
+
     console.log(`${this.$options.name}.mounted: height=${this.height} width=${this.width}`, this.mapDef)
     this.loadDependencies(dependencies, 0, this.init)
   },
