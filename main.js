@@ -39,15 +39,9 @@ Vue.mixin({
             }
         },
         loadDependencies(dependencies, i, callback) {
-            const loaded = new Set()
-            document.querySelectorAll('script').forEach(script => loaded.add(script.attributes.src.value))
-            document.querySelectorAll('link').forEach(link => loaded.add(link.attributes.href.value))
-
-            // const toLoad = dependencies.filter(dependency => !loaded.has(dependency))
-            const toLoad = dependencies
-            if (toLoad.length > 0) {
-                this.load(toLoad[i], () => {
-                    if (i < toLoad.length-1) {
+            if (dependencies.length > 0) {
+                this.load(dependencies[i], () => {
+                    if (i < dependencies.length-1) {
                         this.loadDependencies(toLoad, i+1, callback) 
                     } else {
                         callback()

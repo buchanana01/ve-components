@@ -20,7 +20,7 @@
 /* global marked */
 
 const dependencies = [
-    'https://rsnyder.github.io/ve/public/js/lingallery.umd.min.js',
+    'https://jstor-labs.github.io/ve-components/public/js/lingallery.umd.min.js',
     'https://cdnjs.cloudflare.com/ajax/libs/marked/1.1.1/marked.min.js'
 ]
 

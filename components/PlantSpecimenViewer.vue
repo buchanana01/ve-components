@@ -40,7 +40,7 @@ module.exports = {
     name: "PlantSpecimenViewer",
     props: { items: Array, width: Number, height: Number },
     components: {
-        imageViewer: 'url:https://raw.githubusercontent.com/rsnyder/ve/master/components/ImageViewer/index.vue'
+        imageViewer: 'url:https://raw.githubusercontent.com/jstor-labs/ve-components/master/components/ImageViewer/index.vue'
     },
     data: () => ({
         tab: undefined,

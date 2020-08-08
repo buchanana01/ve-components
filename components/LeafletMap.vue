@@ -14,8 +14,8 @@
 const dependencies = [
     'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet.css',
     'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet.js',
-    'https://raw.githubusercontent.com/jstor-labs/ve-components/master/public/js/L.Control.Opacity.js',
-    'https://raw.githubusercontent.com/jstor-labs/ve-components/master/public/js/leaflet-fa-marker.js',
+    'https://jstor-labs.github.io/ve-components/public/js/L.Control.Opacity.js',
+    'https://jstor-labs.github.io/ve-components/public/js/leaflet-fa-markers.js'
 ]
 
 const baseLayers = {
