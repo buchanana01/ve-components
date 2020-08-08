@@ -67,7 +67,7 @@
     PlantSpecimenViewer: [{ id: 'item-0', eid: 'Q165321', max: 1 }]
 }
 
-  const component = window.location.search.split('component=').pop() || 'LeafletMap'
+  const component = window.location.search.split('component=').pop() || 'D3PlusNetwork'
 
   export default {
     name: 'App',

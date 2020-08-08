@@ -52,7 +52,7 @@ module.exports = {
     selectedItemID: String
   },
   components: {
-    timeSelector: 'url:./TimeSelector.vue'
+    timeSelector: 'url:https://raw.githubusercontent.com/jstor-labs/ve-components/master/components/TimeSelector.vue'
   },
   data: () => ({
     map: null,

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="images.length > 0">
     <lingallery
       :iid.sync="currentId"
       :width="width"
@@ -72,6 +72,7 @@ module.exports = {
             return mapped
         })
         this.currentId = images[0].id
+        console.log('getImages', this.images)
         this.images = images
       }
   }
