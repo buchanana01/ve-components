@@ -4,12 +4,10 @@
     <v-navigation-drawer app v-if="nav.length > 0" v-model="drawer" style="z-index:201 !important;">
       <v-layout justify-space-between column fill-height>
         <v-list dense v-cloak>
-          <template v-if="menuItem.enabled">
-            <v-list-item v-for="(menuItem, i) in nav" :key="i" @click="menuItemClicked(menuItem.path)">
-                <v-list-item-action><v-icon>{{menuItem.icon}}</v-icon></v-list-item-action>
-                <v-list-item-content><v-list-item-title>{{menuItem.title}}</v-list-item-title></v-list-item-content>
-            </v-list-item>
-          </template>
+          <v-list-item v-for="(menuItem, i) in nav" :key="i" @click="menuItemClicked(menuItem.path)" v-if="menuItem.enabled">
+              <v-list-item-action><v-icon>{{menuItem.icon}}</v-icon></v-list-item-action>
+              <v-list-item-content><v-list-item-title>{{menuItem.title}}</v-list-item-title></v-list-item-content>
+          </v-list-item>
         </v-list>
 
         <v-list dense v-cloak justify-end>

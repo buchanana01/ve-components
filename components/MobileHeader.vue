@@ -3,12 +3,10 @@
     
     <v-navigation-drawer app v-model="drawer" style="z-index:201 !important;">
       <v-list dense v-cloak>
-        <template v-if="menuItem.enabled">
-            <v-list-item v-for="(menuItem, i) in nav" :key="i" @click="menuItemClicked(menuItem.file)">
-            <v-list-item-action><v-icon>{{menuItem.icon}}</v-icon></v-list-item-action>
-            <v-list-item-content><v-list-item-title>{{menuItem.title}}</v-list-item-title></v-list-item-content>
-            </v-list-item>
-        </template>
+        <v-list-item v-for="(menuItem, i) in nav" :key="i" @click="menuItemClicked(menuItem.file)" v-if="menuItem.enabled">
+          <v-list-item-action><v-icon>{{menuItem.icon}}</v-icon></v-list-item-action>
+          <v-list-item-content><v-list-item-title>{{menuItem.title}}</v-list-item-title></v-list-item-content>
+        </v-list-item>
         <v-divider></v-divider>
         <v-list-item @click="drawer = false; showMarkdown()">
           <v-list-item-action><v-icon>mdi-code-tags</v-icon></v-list-item-action>
