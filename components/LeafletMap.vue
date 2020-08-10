@@ -84,7 +84,7 @@ module.exports = {
     },
     timeSelector() { return this.mapDef['time-selector'] },
     locations() { return this.itemsInActiveElements.filter(entity => entity.coords || entity.geojson) },
-    isSelected() { return this.selected === 'map' }
+    isSelected() { return this.selected === 'mapViewer' }
   },
   mounted() {
 
@@ -401,35 +401,51 @@ module.exports = {
       // return !prior || current.basemap !== prior.basemap || current['time-selector'] !== prior['time-selector']
     },
     parseDate(ds) {
-        let date
-        if (Number.isInteger(ds)) {
-            date = new Date(`${ds}-01-01T00:00:00Z`)
-        } else {
-            const split = ds.split('-')
-            if (split.length === 1) {
-            const yr = split[0].toUpperCase().replace(/[. ]/,'')
-            let yrAsInt
-            if (yr.indexOf('BC') > 0) { // covers both 'BC' and 'BCE' eras
-                yrAsInt = -Math.abs(parseInt(yr.slice(0,yr.indexOf('BCE'))))
-            } else if (yr.indexOf('CE') > 0 || yr.indexOf('AD') > 0) {
-                yrAsInt = parseInt(yr.slice(0,yr.indexOf('CE')))
-            } else {
-                yrAsInt = parseInt(ds)
-            }
-            if (yrAsInt >= 1000) {
-                date = new Date(`${yrAsInt}-01-01T00:00:00Z`)
-            } else {
-                date = new Date(yrAsInt, 0, 0)
-                date.setUTCFullYear(yrAsInt)
-            }
-            } else if (split.length === 2) {
-            date = new Date(`${split[0]}-${split[1]}-01T00:00:00Z`)
-            } else if (split.length === 3) {
-            date = new Date(`${ds}T00:00:00Z`)
-            }
+      let date
+      if (Number.isInteger(ds)) {
+          date = new Date(`${ds}-01-01T00:00:00Z`)
+      } else {
+          const split = ds.split('-')
+          if (split.length === 1) {
+          const yr = split[0].toUpperCase().replace(/[. ]/,'')
+          let yrAsInt
+          if (yr.indexOf('BC') > 0) { // covers both 'BC' and 'BCE' eras
+              yrAsInt = -Math.abs(parseInt(yr.slice(0,yr.indexOf('BCE'))))
+          } else if (yr.indexOf('CE') > 0 || yr.indexOf('AD') > 0) {
+              yrAsInt = parseInt(yr.slice(0,yr.indexOf('CE')))
+          } else {
+              yrAsInt = parseInt(ds)
+          }
+          if (yrAsInt >= 1000) {
+              date = new Date(`${yrAsInt}-01-01T00:00:00Z`)
+          } else {
+              date = new Date(yrAsInt, 0, 0)
+              date.setUTCFullYear(yrAsInt)
+          }
+          } else if (split.length === 2) {
+          date = new Date(`${split[0]}-${split[1]}-01T00:00:00Z`)
+          } else if (split.length === 3) {
+          date = new Date(`${ds}T00:00:00Z`)
+          }
+      }
+      return date
+    },
+    refresh() {
+      this.$nextTick(() => {
+        const lmap = document.getElementById('lmap')
+        const timeSelectorHeight = this.$refs.timeSelector ? this.$refs.timeSelector.clientHeight : 0
+        this.mapHeight = this.height - timeSelectorHeight      
+        if (this.isSelected) {
+          if (lmap) {
+            lmap.style.height = `${this.mapHeight}px`
+          }
+          if (this.map) {
+            this.$nextTick(() => this.map.invalidateSize())
+          }
+          console.log(`${this.$options.name}.refresh: height=${this.height} width=${this.width} timeSelectorHeight=${timeSelectorHeight} mapHeight=${this.mapHeight} lmap=${lmap ? lmap.style.height : 0}`)
         }
-        return date
-        }
+      })
+    }
   },
   watch: {
     geojsonIsLoading: {
@@ -512,23 +528,13 @@ module.exports = {
     },
     selected: {
       handler: function () {
-        const map = document.getElementById('map')
-        if (this.isSelected && map && map.style.display === 'none') {
-          map.style.display = 'block'
-        }
+        this.refresh()
       },
       immediate: true
     },
     height: {
       handler: function () {
-        const timeSelectorHeight = this.$refs.timeSelector ? this.$refs.timeSelector.clientHeight : 0
-        this.mapHeight = this.height - timeSelectorHeight
-        const lmap = document.getElementById('lmap')
-        if (lmap) {
-          lmap.style.height = `${this.mapHeight}px`
-          if (this.map) this.map.invalidateSize()
-        }
-        console.log(`${this.$options.name}.watch.height: height=${this.height} width=${this.width} timeSelectorHeight=${timeSelectorHeight} mapHeight=${this.mapHeight} lmap=${lmap ? lmap.style.height : 0}`)
+        this.refresh()
       },
       immediate: true
     },
@@ -540,6 +546,7 @@ module.exports = {
     },
     mapDef: {
       handler: function (mapDef, prior) {
+        console.log('mapDef')
         const lmap = document.getElementById('lmap')
         if (lmap) {
           if (mapDef) {

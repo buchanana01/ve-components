@@ -15,7 +15,8 @@ module.exports = {
     items: Array,
     width: Number,
     height: Number,
-    defaultFit: {type: String, default: 'cover'}
+    defaultFit: {type: String, default: 'cover'},
+    selected: String
   },
   data: () => ({
     viewer: undefined,
@@ -55,7 +56,7 @@ module.exports = {
       }
     },
     positionImage() {
-      console.log('positionImage', this.region)
+      // console.log(`positionImage: reqgion=${this.region} fit=${this.fit} imageOrientation=${this.imageOrientation}`)
       if (this.region) {
         this.viewer.viewport.fitBounds(this.region, true)
       } else if (this.fit === 'cover') {
@@ -73,13 +74,13 @@ module.exports = {
       }
     },
     init() {
-        this.containerOrientation = this.width > this.height ? 'landscape' : 'portrait'
-        console.log('OpenSeadragonImageViewer.mounted', this.width, this.height, this.containerOrientation, this.items)
+      const item = this.items[0]
+      this.fit = (item.fit || this.defaultFit) === 'cover' ? 'cover' : 'contain'
+      console.log('OpenSeadragonImageViewer.init', this.width, this.height, this.containerOrientation, this.fit, this.items)
+      this.containerOrientation = this.width > this.height ? 'landscape' : 'portrait'
       if (this.viewer) {
         this.viewer.destroy()
       }
-      const item = this.items[0]
-      this.fit = (item.fit || this.defaultFit) === 'cover' ? 'cover' : 'contain'
 
       this.viewer = OpenSeadragon({
         id: 'osd',
@@ -123,10 +124,25 @@ module.exports = {
     }
   },
   watch: {
-    items: {
+    height: {
       handler: function () {
-        console.log('OpenSeadragonImageViewer.items', this.items)
-        this.init()
+        this.positionImage()
+      },
+      immediate: false
+    },
+    selected: {
+      handler: function (current, prior) {
+        if (prior && current === 'imageViewer') {
+          this.positionImage()
+        }
+      },
+      immediate: false
+    },
+    items: {
+      handler: function (current, prior) {
+        console.log('OpenSeadragonImageViewer.items', current, prior)
+        if (!prior || prior[0]['iiif-url'] !== current[0]['iiif-url']) this.init()
+        // if (JSON.stringify(current) !== JSON.stringify(prior)) this.init()
       },
       immediate: false
     }

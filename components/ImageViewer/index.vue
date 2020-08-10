@@ -2,7 +2,7 @@
   <div id="image-viewer" >
     <component 
       v-bind:is="mode === 'iiif' ? 'openSeadragonImageViewer' : 'staticImageViewer'"
-      :width="width" :height="height" :seq="seq" :items="items" :default-fit="defaultFit"
+      :width="width" :height="height" :seq="seq" :items="items" :selected="selected" :default-fit="defaultFit"
     ></component>
   </div>
 </template>
@@ -17,7 +17,8 @@ module.exports = {
     width: Number,
     height: Number,
     initialMode: { type: String, default: 'iiif' },
-    defaultFit: {type: String, default: 'cover'}
+    defaultFit: {type: String, default: 'cover'},
+    selected: String
   },
   components: {
     openSeadragonImageViewer: 'url:https://raw.githubusercontent.com/jstor-labs/ve-components/master/components/ImageViewer/OpenSeadragonViewer.vue',
