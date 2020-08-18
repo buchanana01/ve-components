@@ -42,7 +42,7 @@ Vue.mixin({
             if (dependencies.length > 0) {
                 this.load(dependencies[i], () => {
                     if (i < dependencies.length-1) {
-                        this.loadDependencies(toLoad, i+1, callback) 
+                        this.loadDependencies(dependencies, i+1, callback) 
                     } else {
                         callback()
                     }

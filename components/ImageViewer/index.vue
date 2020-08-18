@@ -2,7 +2,13 @@
   <div id="image-viewer" >
     <component 
       v-bind:is="mode === 'iiif' ? 'openSeadragonImageViewer' : 'staticImageViewer'"
-      :width="width" :height="height" :seq="seq" :items="items" :selected="selected" :default-fit="defaultFit"
+      :width="width" 
+      :height="height" 
+      :seq="seq" 
+      :items="items" 
+      :selected="selected"
+      :active="activeElement" 
+      :default-fit="defaultFit"
     ></component>
   </div>
 </template>
@@ -14,11 +20,13 @@ module.exports = {
   props: {
     seq: {type: Number, default: 1},
     items: Array,
+    activeElement: String,
     width: Number,
     height: Number,
     initialMode: { type: String, default: 'iiif' },
     defaultFit: {type: String, default: 'cover'},
-    selected: String
+    selected: String,
+    another: String
   },
   components: {
     openSeadragonImageViewer: 'url:https://raw.githubusercontent.com/jstor-labs/ve-components/master/components/ImageViewer/OpenSeadragonViewer.vue',
@@ -28,9 +36,15 @@ module.exports = {
     mode: 'static',
   }),
   mounted() {
-    console.log(`ImageViewer.mounted: seq=${this.seq} initialMode=${this.initialMode}`)
+    console.log(`ImageViewer.mounted: seq=${this.seq} initialMode=${this.initialMode} activeElement=${this.activeElement}`)
   },
   watch: {
+    activeElement: {
+      handler: function () {
+        console.log(`ImageViewer.activeElement=${this.activeElement}`)
+      },
+      immediate: true
+    },
     items: {
       handler: function () {
         const itemWithModeDefined = this.items.find(item => item.iiif || item.static)

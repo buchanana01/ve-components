@@ -25,6 +25,7 @@ module.exports = {
       this.items = []
     },
     getItems(selected) {
+      console.log('getItems', selected, this.groups)
       if (this.groups.imageViewer) {
         this.items = this.groups.imageViewer.items.filter(item => item.id === selected)
       } else if (this.groups.plantSpecimenViewer) {
@@ -40,6 +41,12 @@ module.exports = {
         if (selected) {
           this.getItems(selected)
         }
+      },
+      immediate: true
+    },
+    groups: {
+      handler: function (selected) {
+        console.log('imageViewer.groups', this.groups)
       },
       immediate: true
     }
