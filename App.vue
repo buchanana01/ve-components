@@ -56,10 +56,14 @@
     ImageViewer: [{ 
         id: 'item-0',
         static: 'true',
-        url: 'https://iiif.visual-essays.app/images/2fbba2fdf4e34c1e6b4441db6a7addc7c511059b175cff68eaee0e6d/full/,1000/0/default.png',
-        'iiif-url': 'https://iiif.visual-essays.app/images/2fbba2fdf4e34c1e6b4441db6a7addc7c511059b175cff68eaee0e6d'}],
-    OpenSeadragonViewer: [{ id: 'item-0', 'iiif-url': 'https://iiif.visual-essays.app/images/44605f0600bc7a3c264abf650f3c7eb785fffec8b3eb10cf30d37a39' }],
-    MiradorViewer: [{ id: 'item-0', manifest: 'https://iiif.visual-essays.app/presentation/0c5b8a7a5ac54eb61cf94c3ade84b6016ef432ccbff9987012d3432e/manifest' }],
+        url: 'https://iiif.visual-essays.app/images/497cf8340bb1cb2790d0d57417e9868a479afaf65d952fc102987dd1/full/1000,/0/default.png',
+        'iiif-url': 'https://iiif.visual-essays.app/images/497cf8340bb1cb2790d0d57417e9868a479afaf65d952fc102987dd1'}],
+    OpenSeadragonViewer: [{ 
+        id: 'item-0', 
+        'iiif-url': 'https://iiif.visual-essays.app/images/497cf8340bb1cb2790d0d57417e9868a479afaf65d952fc102987dd1',
+        source: 'https://upload.wikimedia.org/wikipedia/commons/9/95/Tidal_Basin_in_Spring.jpg',
+        title: 'The Tidal Basin' }],
+    MiradorViewer: [{ id: 'item-0', manifest: 'https://iiif.visual-essays.app/presentation/abb458de59f40c53bed8886f824e90fa30bef566c90a373f3964ae89/manifest' }],
     StaticImageViewer: [
         { id: 'item-0', url: 'https://upload.wikimedia.org/wikipedia/commons/0/02/Ann_Arbor_Art_Fair%2C_2019.jpg', title: 'Ann Arbor Art Fair' },
         { id: 'item-1', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Michigan_Theater%2C_Ann_Arbor_2020-05-05.jpg/1024px-Michigan_Theater%2C_Ann_Arbor_2020-05-05.jpg' }

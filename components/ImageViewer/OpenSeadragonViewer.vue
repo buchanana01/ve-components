@@ -159,11 +159,11 @@ module.exports = {
         fetch(`https://annotations.visual-essays.app/ve/${_id}`, { method: 'DELETE' })
       })
     },
-    viewNextAnnotation(e) {
+    viewNextAnnotation() {
       this.annoCursor = this.annoCursor < this.currentItem.annotations.length ? this.annoCursor + 1 : 1
       this.gotoAnnotation(this.currentItem.annotations[this.annoCursor - 1])
     },
-    viewPreviousAnnotation(e) {
+    viewPreviousAnnotation() {
       this.annoCursor = this.annoCursor > 1 ? this.annoCursor - 1 : this.currentItem.annotations.length
       this.gotoAnnotation(this.currentItem.annotations[this.annoCursor - 1])
     },
@@ -210,7 +210,7 @@ module.exports = {
       const imageBounds = tiledImage.viewportToImageRectangle(viewportBounds)
       return `${Math.ceil(imageBounds.x)},${Math.ceil(imageBounds.y)},${Math.ceil(imageBounds.width)},${Math.ceil(imageBounds.height)}`
     },
-    viewportChange: _.debounce(function (e) {
+    viewportChange: _.debounce(function () {
       document.querySelector('#bottom-overlay').innerHTML = this.imageViewportCoords()
     }, 100),
     gotoAnnotation(anno) {
