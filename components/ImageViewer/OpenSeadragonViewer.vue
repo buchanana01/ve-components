@@ -104,7 +104,7 @@ module.exports = {
       this.viewer.addHandler('home', () => { this.annoCursor = 0 })
     },
     initAnnos() {
-      this.annotorious = OpenSeadragon.Annotorious(this.viewer, { readOnly: true })
+      this.annotorious = OpenSeadragon.Annotorious(this.viewer, { readOnly: false })
       this.currentItem.annotations = []
       fetch(`https://annotations.visual-essays.app/ve/?target=${encodeURIComponent(this.currentItem.source)}`).then(resp => resp.json())
       .then(data => {
@@ -214,7 +214,7 @@ module.exports = {
       document.querySelector('#bottom-overlay').innerHTML = this.imageViewportCoords()
     }, 100),
     gotoAnnotation(anno) {
-      this.annoCursor = this.currentItem.annotations.indexOf(anno) + 1
+      this.annoCursor = this.currentItem.annotations.indexOf(anno) +1
       this.currentRegion = this.parseRegionString(anno.region)
       // this.viewer.viewport.panTo(this.currentRegion.getCenter(), true).zoomTo(2)
       // this.positionImage()
