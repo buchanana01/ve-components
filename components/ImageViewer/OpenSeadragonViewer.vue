@@ -1,8 +1,10 @@
 <template>
   <div class="main">
     <div id="top-overlay" class="overlay">
-      <img src="images/next_rest.png" style="float:right;" @click="viewNextAnnotation">
-      <img src="images/previous_rest.png" style="float:right;" @click="viewPreviousAnnotation">
+      <template v-if="currentItem.annotations">
+        <img src="images/next_rest.png" style="float:right;" @click="viewNextAnnotation">
+        <img src="images/previous_rest.png" style="float:right;" @click="viewPreviousAnnotation">
+      </template>
       <div v-html="title" style="float:left;"></div>
     </div>
     <div id="osd" :style="containerStyle"></div>
@@ -41,15 +43,18 @@ module.exports = {
     zoom: undefined,
     drag: false,
     annoCursor: 0,
+    currentItem: undefined
   }),
   computed: {
     containerStyle() { return { position: 'relative', width: `${this.width}px`, height: `${this.height}px`, overflowY: 'auto !important' } },
-    currentItem() { return this.items[0] },
     title() { return this.annoCursor > 0 
       ? this.currentItem.annotations[this.annoCursor - 1].text
       : this.currentItem.label || this.currentItem.title
     },
     target() { return this.currentItem.source }
+  },
+  created() {
+      this.currentItem = this.items[0]
   },
   mounted() {
     console.log(this.$options.name, this.items, this.active, this.width, this.height, this.defaultFit, this.selected)
@@ -108,14 +113,20 @@ module.exports = {
       this.currentItem.annotations = []
       fetch(`https://annotations.visual-essays.app/ve/?target=${encodeURIComponent(this.currentItem.source)}`).then(resp => resp.json())
       .then(data => {
-        data.first.items.forEach(anno => {
-          this.annotorious.addAnnotation(anno)
-          this.currentItem.annotations.push({
-            id: anno.id.split('/').pop(),
-            region: anno.target.selector.value.split('=')[1],
-            text: anno.body[0].value
+        if (data.first) {
+          const annotations = data.first.items.map(anno => {
+            this.annotorious.addAnnotation(anno)
+            return {
+              id: anno.id.split('/').pop(),
+              region: anno.target.selector.value.split('=')[1],
+              text: anno.body[0].value
+            }
           })
-        })
+          if (annotations.length > 0) {
+            this.currentItem = { ...this.currentItem, ...{ annotations } }
+          }
+        }
+        console.log(this.currentItem)
       })
       this.annotorious.on('createAnnotation', (anno) => {
         anno.seq = this.currentItem.annotations.length
