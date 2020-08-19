@@ -100,9 +100,11 @@ module.exports = {
         if (this.drag) {
           this.drag = false
         } else {
-          this.$store.dispatch('setSelectedImageID', this.currentItem.id)
-          this.$modal.show('image-viewer-modal')
-          this.positionImage()
+          if (this.currentItem.manifest) {
+            this.$store.dispatch('setSelectedImageID', this.currentItem.id)
+            this.$modal.show('image-viewer-modal')
+            this.positionImage()
+          }
         }
       })
       this.viewer.addHandler('viewport-change', this.viewportChange)
