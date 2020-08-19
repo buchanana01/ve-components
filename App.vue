@@ -60,7 +60,7 @@
         'iiif-url': 'https://iiif.visual-essays.app/images/497cf8340bb1cb2790d0d57417e9868a479afaf65d952fc102987dd1'}],
     OpenSeadragonViewer: [{ 
         id: 'item-0', 
-        'iiif-url': 'https://iiif.visual-essays.app/images/497cf8340bb1cb2790d0d57417e9868a479afaf65d952fc102987dd1',
+        'iiif-url': 'https://free.iiifhosting.com/iiif/4f44449c4d7bad07c9175a07f32accba70a702e3a15e5e6ae6bfc30f784a09e1',
         source: 'https://upload.wikimedia.org/wikipedia/commons/9/95/Tidal_Basin_in_Spring.jpg',
         title: 'The Tidal Basin' }],
     MiradorViewer: [{ id: 'item-0', manifest: 'https://iiif.visual-essays.app/presentation/abb458de59f40c53bed8886f824e90fa30bef566c90a373f3964ae89/manifest' }],

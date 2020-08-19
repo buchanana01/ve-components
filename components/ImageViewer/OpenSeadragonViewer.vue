@@ -81,8 +81,20 @@ module.exports = {
         homeFillsViewer: this.fit === 'cover',
         showFullPageControl: false
       })
-
       this.viewer.addHandler('open', () => {
+        let customButton = new OpenSeadragon.Button({
+          tooltip: 'Custom',
+          srcRest: `/images/flip_rest.png`,
+          srcGroup: `/images/flip_rest.png`,
+          srcHover: `/images/flip_rest.png`,
+          srcDown: `/images/flip_rest.png`,
+          onClick: this.onCustomButtonClick
+        })
+        // this.viewer.addControl(customButton.element, { anchor: OpenSeadragon.ControlAnchor.TOP_LEFT })
+        this.viewer.buttons.buttons.push(customButton)
+        this.viewer.buttons.element.appendChild(customButton.element)
+        console.log(this.viewer)
+
         this.currentRegion = this.currentItem.region ? this.parseRegionString(this.currentItem.region) : null
         if (this.currentRegion) this.positionImage()
         document.querySelector('#bottom-overlay').innerHTML = this.imageViewportCoords()
@@ -171,6 +183,9 @@ module.exports = {
         const _id = anno.id.split('/').pop()
         fetch(`https://annotations.visual-essays.app/ve/${_id}`, { method: 'DELETE' })
       })
+    },
+    onCustomButtonClick(e) {
+      console.log('onCustomButtonClick', e)
     },
     viewNextAnnotation() {
       this.annoCursor = this.annoCursor < this.currentItem.annotations.length ? this.annoCursor + 1 : 1
