@@ -261,7 +261,8 @@ module.exports = {
     },
     onClick(e) {
       e.stopPropagation()
-      e.target.attributes.forEach(attr => {
+      for (let i = 0; i < e.target.attributes.length; i++) {
+        const attr = e.target.attributes.item(i)
         if (attr.name.indexOf('data-click-') === 0) {
           const action = attr.name.split('-')[2]
           const value = attr.value
@@ -271,7 +272,7 @@ module.exports = {
             if (anno) this.gotoAnnotation(anno)
           }
         }
-      })
+      }
     },
     addHandlers(elemId) {
       console.log('addHandlers')
