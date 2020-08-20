@@ -278,6 +278,7 @@ module.exports = {
       Array.from (document.querySelectorAll(`#${elemId} span`))
         .filter(elem => elem.dataset)
         .forEach(elem => {
+          console.log(elem)
           elem.attributes.forEach(attr => {
             if (attr.name.indexOf('data-') === 0) {
               const event = attr.name.split('-')[1]
