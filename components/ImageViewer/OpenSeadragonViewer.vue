@@ -278,14 +278,13 @@ module.exports = {
       Array.from (document.querySelectorAll(`#${elemId} span`))
         .filter(elem => elem.dataset)
         .forEach(elem => {
-          console.log(elem)
-          console.dir(elem)
-          elem.attributes.forEach(attr => {
+          for (let i = 0; i < elem.attributes.length; i++) {
+            const attr = elem.attributes.item(i)
             if (attr.name.indexOf('data-') === 0) {
               const event = attr.name.split('-')[1]
               if (event === 'click') elem.addEventListener(event, this.onClick)
             }
-          })
+          }
         })
     },
     removeHandlers(elemId) {
@@ -293,12 +292,13 @@ module.exports = {
       Array.from (document.querySelectorAll(`#${elemId} span`))
         .filter(elem => elem.dataset)
         .forEach(elem => {
-          elem.attributes.forEach(attr => {
+          for (let i = 0; i < elem.attributes.length; i++) {
+            const attr = elem.attributes.item(i)
             if (attr.name.indexOf('data-') === 0) {
               const event = attr.name.split('-')[1]
               if (event === 'click') elem.removeEventListener(event, this.onClick)
             }
-          })
+          }
         })
     },
     copyTextToClipboard(e) {
