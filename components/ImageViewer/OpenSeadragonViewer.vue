@@ -279,6 +279,7 @@ module.exports = {
         .filter(elem => elem.dataset)
         .forEach(elem => {
           console.log(elem)
+          console.dir(elem)
           elem.attributes.forEach(attr => {
             if (attr.name.indexOf('data-') === 0) {
               const event = attr.name.split('-')[1]
