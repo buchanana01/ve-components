@@ -33,9 +33,9 @@
         url1: 'https://iiif.visual-essays.app/images/88b53551f91eaeea450ff6c196b4fd5f9fd6955b356d616543af591f/info.json',
         url2: 'https://iiif.visual-essays.app/images/a58d7d72db0b59290c54d57e414d88d892efee1b88cc639ee0f6dc3f/info.json'
     }],
-    D3Network: [{ id: 'item-0', url: 'data/miserables-1.json' }],
-    D3PlusNetwork: [{ id: 'item-0', url: 'data/medici.tsv' }],
-    D3PlusRingNetwork: [{ id: 'item-0', url: 'data/medici.tsv' }],
+    D3Network: [{ id: 'item-0', url: 'data/heliconia.json' }],
+    D3PlusNetwork: [{ id: 'item-0', url: 'data/heliconia.tsv' }],
+    D3PlusRingNetwork: [{ id: 'item-0', url: 'data/heliconia.tsv' }],
     // VisNetwork: [{ id: 'item-0', file: 'data/medici.tsv', layout: 'network', arrows: 'to'  }],
     VisNetwork: [{ id: 'item-0', file: 'https://raw.githubusercontent.com/JSTOR-Labs/plant-humanities/master/graphs/watermelon.csv', layout: 'network', arrows: 'to'  }],
     StoriiiesViewer: [{ id: '3f1du' }],
